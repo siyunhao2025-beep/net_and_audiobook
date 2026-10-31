@@ -48,14 +48,14 @@ def run(out,executable=None):
                     for protocol in ['file','http']:
                         for width in [1280,390]:
                             label=f'{kind}:{protocol}:{width}'
-                            ctx=browser.new_context(viewport={'width':width,'height':900},reduced_motion='reduce');page=ctx.new_page();js=[];page.on('pageerror',lambda e:js.append(str(e)))
+                            ctx=browser.new_context(viewport={'width':width,'height':900},reduced_motion='reduce');page=ctx.new_page();page.set_default_timeout(8000);js=[];page.on('pageerror',lambda e:js.append(str(e)))
                             try:
                                 url=(root/kind/'index.html').as_uri() if protocol=='file' else f'http://127.0.0.1:{server.server_port}/{kind}/index.html';page.goto(url)
                                 page.wait_for_function('window.NBAReader && window.NBAReader.version')
                                 if kind=='project':
                                     if width==390:page.locator('#menu').click()
                                     page.locator('[data-chapter]').first.click()
-                                selector='.unit[data-unit]' if kind!='paper' else '.reading-block[data-block-id]'
+                                selector='.chapter:not([hidden]) .unit[data-unit]' if kind=='project' else '.unit[data-unit]' if kind=='course' else '.reading-block[data-block-id]'
                                 page.wait_for_function("() => document.querySelectorAll('math.reader-math').length > 20")
                                 count=page.locator(selector).count();indices=[0,count//2,count-1,3]
                                 for i in indices:
@@ -83,6 +83,7 @@ def run(out,executable=None):
                                 for theme in ['light','dark']:
                                     page.evaluate('theme=>document.documentElement.dataset.theme=theme',theme)
                                     assert page.evaluate("getComputedStyle(document.body).color!==getComputedStyle(document.body).backgroundColor"),'Unreadable palette'
+                                    assert page.evaluate("getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()===getComputedStyle(document.documentElement).getPropertyValue('--reader-accent').trim()"),'Legacy theme overrides the reading palette'
                                 if kind=='project':
                                     page.locator(f'[data-unit-check="{id}"]').click();page.reload();page.wait_for_function('id=>window.NBAReader.current()===id',arg=id)
                                     assert page.locator(f'[data-unit-check="{id}"]').get_attribute('aria-pressed')=='true','Completion/resume lost'
@@ -90,8 +91,12 @@ def run(out,executable=None):
                                     page.screenshot(path=str(out/f'{kind}-dark.png'))
                                 assert not js,'JavaScript errors: '+str(js)
                                 checks.append({'case':label,'passed':True,'units':count,'themes':['light','dark']})
-                            except Exception as e:errors.append({'case':label,'error':str(e)})
-                            finally:ctx.close()
+                            except Exception as e:
+                                errors.append({'case':label,'error':str(e)})
+                                page.screenshot(path=str(out/f'{kind}-{protocol}-{width}-failure.png'))
+                            finally:
+                                ctx.close()
+                                print(json.dumps({'case':label,'passed':not any(e['case']==label for e in errors)},ensure_ascii=False),flush=True)
                 browser.close()
         finally:server.shutdown();server.server_close()
     report={'checks':checks,'errors':errors,'fixture':'Original synthetic content; not a deployment check of private sites.'};write_json(out/'reader-report.json',report);print(json.dumps(report,ensure_ascii=False));return report

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Offline contract and recovery tests. All generated inputs/targets are temporary."""
 from __future__ import annotations
-import contextlib, copy, io, json, sys, tempfile, unittest, zipfile
+import contextlib, copy, io, json, shutil, sys, tempfile, unittest, zipfile
 from pathlib import Path
 from unittest import mock
 from common import *
@@ -55,6 +55,18 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(s[-1]["text"].startswith("通俗地说，")); self.assertEqual(s[1]["rate"], "-30%")
         self.assertEqual(spelling("Solar wind"), "S, O, L, A, R. W, I, N, D.")
         self.assertEqual(plain_cue("通俗的说，通俗地说，太阳"), "通俗地说，太阳")
+
+    def test_reader_update_refreshes_shell_without_resetting_audio(self):
+        self.build()
+        original_catalog=read_json(self.stage/'audiobook/catalog.json')
+        original_sw=(self.stage/'sw.js').read_bytes()
+        assets=self.root/'renderer';shutil.copytree(Path(__file__).resolve().parents[1]/'assets/site',assets)
+        with (assets/'reading/reader.css').open('a',encoding='utf-8') as stream:stream.write('\n/* new palette */\n')
+        second=self.root/'second-stage'
+        with mock.patch('build_site.ASSETS',assets),contextlib.redirect_stdout(io.StringIO()):build(self.inputs/'project.json',second,self.inputs)
+        self.assertNotEqual(original_sw,(second/'sw.js').read_bytes())
+        self.assertEqual(original_catalog['audio_version'],read_json(second/'audiobook/catalog.json')['audio_version'])
+        self.assertIn(b'./reading/reader.css',original_sw)
 
     def test_source_drift_does_not_create_stage(self):
         with (self.inputs / "demo.pdf").open("ab") as f: f.write(b"changed")
