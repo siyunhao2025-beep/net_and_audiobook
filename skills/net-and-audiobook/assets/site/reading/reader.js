@@ -4,24 +4,29 @@
   const NS = 'http://www.w3.org/1998/Math/MathML';
   const commands = {alpha:'α',beta:'β',gamma:'γ',delta:'δ',epsilon:'ε',varepsilon:'ϵ',zeta:'ζ',eta:'η',theta:'θ',vartheta:'ϑ',iota:'ι',kappa:'κ',lambda:'λ',mu:'μ',nu:'ν',xi:'ξ',pi:'π',rho:'ρ',sigma:'σ',tau:'τ',upsilon:'υ',phi:'φ',varphi:'ϕ',chi:'χ',psi:'ψ',omega:'ω',Gamma:'Γ',Delta:'Δ',Theta:'Θ',Lambda:'Λ',Xi:'Ξ',Pi:'Π',Sigma:'Σ',Phi:'Φ',Psi:'Ψ',Omega:'Ω',infty:'∞',partial:'∂',nabla:'∇',times:'×',cdot:'·',pm:'±',mp:'∓',gg:'≫',ll:'≪',ge:'≥',geq:'≥',le:'≤',leq:'≤',ne:'≠',neq:'≠',approx:'≈',sim:'∼',propto:'∝',perp:'⊥',parallel:'∥',to:'→'};
   const node = (tag, text, children) => { const n = document.createElementNS(NS, tag); if (text != null) n.textContent = text; if (children) n.append(...children); return n; };
-  const scripts = { '²':'2','³':'3','¹':'1','⁰':'0','⁻':'−','⁺':'+','₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5','₆':'6','₇':'7','₈':'8','₉':'9','ₑ':'e','ᵢ':'i','ₚ':'p' };
-  const operators = new Set([...'+−-×·⋅÷=<>≥≤≠≈∼≫≪±∓∝∈∉∑∫∂∇∞⊥∥→|,:;!%']);
+  const scripts = { '²':'2','³':'3','¹':'1','⁰':'0','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9','⁻':'−','⁺':'+','₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5','₆':'6','₇':'7','₈':'8','₉':'9','ₑ':'e','ᵢ':'i','ₚ':'p' };
+  const operators = new Set([...'+−-×·⋅÷=<>≥≤≠≈∼≫≪±∓∝∈∉∑∫∮∂∇∞⊥∥⊙→|,:;!%']);
+  const aliasNames='theta|lambda|alpha|sigma|kappa|omega|beta|gamma|delta|epsilon|rho|tau|phi|psi|eta|mu|nu|pi|integral';
   function parseMath(source) {
-    let s = source.replace(/\\([A-Za-z]+)/g, (all, key) => commands[key] || all).replace(/>>/g,'≫').replace(/<</g,'≪').replace(/>=/g,'≥').replace(/<=/g,'≤').replace(/!=/g,'≠');
+    let s = source.replace(/\\([A-Za-z]+)/g, (all, key) => commands[key] || all).replace(new RegExp(`(?<![A-Za-z])(${aliasNames})(?=\\b|_)`,'g'),a=>a==='integral'?'∫':commands[a]).replace(/\bk_BT/g,'k_B T').replace(/(\d)x(?=10(?:\^|[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]))/g,'$1×').replace(/_([₀₁₂₃₄₅₆₇₈₉]+[⊥∥]?)/g,(_,a)=>'_{'+[...a].map(c=>scripts[c]||c).join('')+'}').replace(/>>/g,'≫').replace(/<</g,'≪').replace(/>=/g,'≥').replace(/<=/g,'≤').replace(/!=/g,'≠');
+    s=s.replace(/([A-Za-zΑ-ωµ])([∥⊥])/g,'$1_$2');
     if (/\\/.test(s)) return null; // Unknown commands are review items, never guessed.
     let i = 0, valid = true;
     const skip = () => { while (/\s/.test(s[i] || '') && i < s.length) i++; };
     function atom(script = false) {
       skip(); const c = s[i]; if (!c) return null;
       let n;
-      if ('({['.includes(c)) {
+      if(c==='√'){i++;const inner=atom();if(!inner){valid=false;return null;}n=node('msqrt',null,[inner]);}
+      else if (script && /^[+−-][A-Za-zΑ-ωµ]/.test(s.slice(i))) {i++;const inner=atom(true);if(!inner){valid=false;return null;}return node('mrow',null,[node('mo',c==='-'?'−':c),inner]);}
+      else if ('({['.includes(c)) {
+        if(script&&c==='{'){const close=s.indexOf('}',i),label=s.slice(i+1,close);if(close>i&&/^along\s+[A-Za-zΑ-ω][\u0302]?$/.test(label)){i=close+1;return node('mtext',label);}}
         i++; const end = {'(':')','{':'}','[':']'}[c], inner = row(end); if (s[i] !== end) { valid=false; return null; } i++;
         n = c === '{' ? inner : node('mrow',null,[node('mo',c),inner,node('mo',end)]);
       } else if (script && /^[+−-]\d/.test(s.slice(i))) { const m=s.slice(i).match(/^[+−-]\d+(?:\.\d+)?/)[0];i+=m.length;n=node('mn',m.replace('-','−')); }
       else if (/\d/.test(c)) { const m = s.slice(i).match(/^\d+(?:\.\d+)?/)[0]; i += m.length; n=node('mn',m); }
-      else if (/[A-Za-zΑ-ωϵϑϕℓ]/.test(c)) {
+      else if (/[A-Za-zΑ-ωµϵϑϕℓ]/.test(c)) {
         let m;
-        if (script) m = s.slice(i).match(/^[A-Za-zΑ-ωϵϑϕℓ]+/)[0];
+        if (script) m = s.slice(i).match(/^[A-Za-zΑ-ωµϵϑϕℓ]+/)[0];
         else m = s.slice(i).match(/^(?:sin|cos|tan|exp|log|ln|max|min|cm|km|keV|MeV|eV|nT|nPa|Pa|mHz|Hz|kg)(?![A-Za-z])/)?.[0] || c;
         i += m.length; n=node('mi',m); if (m.length > 1) n.setAttribute('mathvariant','normal');
       } else if (operators.has(c)) { i++; n=node('mo',c === '-' ? '−' : c); }
@@ -30,28 +35,39 @@
       let sub=null,sup=null;
       while (i < s.length) {
         if (s[i] === '_' || s[i] === '^') { const op=s[i++], value=atom(true); if (!value || (op==='_'?sub:sup)) { valid=false;return null; } if(op==='_')sub=value;else sup=value; }
+        else if(s[i]==='′'||s[i]==="'"){i++;sup=node('mo','′');}
+        else if(s[i]==='\u0302'){i++;n=node('mover',null,[n,node('mo','^')]);n.setAttribute('accent','true');}
         else if (scripts[s[i]]) { const isSub='₀₁₂₃₄₅₆₇₈₉ₑᵢₚ'.includes(s[i]); let value='';while(scripts[s[i]] && '₀₁₂₃₄₅₆₇₈₉ₑᵢₚ'.includes(s[i])===isSub)value+=scripts[s[i++]];if(isSub)sub=node('mi',value);else sup=node(/^\d+$/.test(value)?'mn':'mrow',value); }
         else break;
       }
       return sub && sup ? node('msubsup',null,[n,sub,sup]) : sub ? node('msub',null,[n,sub]) : sup ? node('msup',null,[n,sup]) : n;
     }
     function row(end) {
-      const children=[];
+      const children=[],ranges=[];
       while(i<s.length) { skip(); if(i>=s.length || s[i]===end)break;
-        if(s[i]==='/') { i++;const a=children.pop(),b=atom();if(!a||!b){valid=false;break;}children.push(node('mfrac',null,[a,b])); }
-        else { const n=atom();if(!n)break;children.push(n); }
+        if(s[i]==='/') {
+          i++;let meta=ranges.pop(),a=children.pop();if(!a||!meta?.factor){valid=false;break;}
+          const numerator=[a];while(ranges.length&&ranges.at(-1).factor&&ranges.at(-1).end===meta.start){meta=ranges.pop();numerator.unshift(children.pop());}
+          skip();const denominator=[],first=atom();if(!first){valid=false;break;}denominator.push(first);
+          while(i<s.length&&!/\s|[\/)\]}+−=<>≥≤≠≈≫≪±∓,;:!-]/.test(s[i])){const factor=atom();if(!factor)break;denominator.push(factor);}
+          children.push(node('mfrac',null,[node('mrow',null,numerator),node('mrow',null,denominator)]));ranges.push({start:meta.start,end:i,factor:true});
+        }
+        else { const start=i,c=s[i],n=atom();if(!n)break;children.push(n);ranges.push({start,end:i,factor:!operators.has(c)||'∂∇∫∮∑∞'.includes(c)}); }
       }
       return node('mrow',null,children);
     }
     const result=row(); return valid && i===s.length && result.childNodes.length ? result : null;
   }
   // A math island must contain explicit notation. Ordinary words, filenames and code stay text.
-  const base = String.raw`(?:\\[A-Za-z]+|cm|km|keV|MeV|eV|nT|nPa|Pa|mHz|Hz|kg|[A-Za-zΑ-ωϵϑϕℓ]|\d+(?:\.\d+)?)`;
-  const script = String.raw`(?:[_^](?:\{[^{}\n]+\}|[A-Za-zΑ-ωϵϑϕℓ]+|[+−-]?\d+)|[²³¹⁰⁻⁺₀₁₂₃₄₅₆₇₈₉ₑᵢₚ]+)`;
-  const atomPattern = String.raw`(?<![A-Za-z0-9_.\\])${base}(?:${script})*(?![A-Za-z0-9_.])`;
+  const base = String.raw`(?:\\[A-Za-z]+|${aliasNames}|sin|cos|tan|exp|log|ln|cm|km|keV|MeV|eV|nT|nPa|Pa|mHz|Hz|kg|[A-Za-zΑ-ωµϵϑϕℓ]{1,3}(?=[_^])|[A-Za-zΑ-ωµϵϑϕℓ∫∮∑∂∇√]|\d+(?:\.\d+)?)`;
+  const script = String.raw`(?:[_^](?:\{[^{}\n]+\}|\([^()\n]+\)|[+−-]?[A-Za-zΑ-ωµϵϑϕℓ]+|[+−-]?\d+|[⊥∥∇⊙]|[₀₁₂₃₄₅₆₇₈₉]+[⊥∥]?)|[²³¹⁰⁴⁵⁶⁷⁸⁹⁻⁺₀₁₂₃₄₅₆₇₈₉ₑᵢₚ]+)`;
+  // The lookahead/backreference makes each atom atomic, avoiding nested backtracking.
+  const atomPattern = String.raw`(?<![A-Za-z0-9_.\\])(?:(?=(${base}(?:${script})*['′\u0302]?))\1)+(?![A-Za-z0-9_]|\.[A-Za-z])`;
   const tokenPattern = new RegExp(`${atomPattern}|${script}|[+−×·⋅÷=<>≥≤≠≈∼≫≪±∓∝⊥∥→/(){}\\[\\]|,:;%!-]`, 'gu');
+  const mathWords=new Set((aliasNames+'|sin|cos|tan|exp|log|ln|cm|km|keV|MeV|eV|nT|nPa|Pa|mHz|Hz|kg|qB|mc|mv|ne|en|ju|uj|dr|ds|dl|dT|dV|dt|Bn|Bt|un').split('|'));
   function islands(text) {
-    const tokens=[...text.matchAll(tokenPattern)], out=[]; let group=[];
+    const scan=text.replace(/https?:\/\/[^\s，。；：！？]+|[A-Za-z0-9_./-]+\.(?:pdf|json|js|css|html|py|png|jpg|mp3|zip)\b/gi,m=>' '.repeat(m.length)).replace(/(\d)x(?=10(?:\^|[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]))/g,'$1×');
+    const tokens=[...scan.matchAll(tokenPattern)], out=[]; let group=[];
     const flush=()=>{if(!group.length)return;let a=group[0].index,b=group.at(-1).index+group.at(-1)[0].length;
       let value=text.slice(a,b);
       const wordStart=text.slice(0,a).search(/[^\s，。；：！？（）]+$/),wordEnd=text.slice(b).search(/[\s，。；：！？（）]/);
@@ -64,8 +80,9 @@
         while(value.startsWith('(')&&[...value].filter(c=>c==='(').length>[...value].filter(c=>c===')').length){a++;value=value.slice(1);}
         while(value.endsWith(')')&&[...value].filter(c=>c===')').length>[...value].filter(c=>c==='(').length){b--;value=value.slice(0,-1);}
         if(value && parseMath(value))out.push({start:a,end:b,source:value});
+        else for(const t of group){if(/[_^]/.test(t[0])&&parseMath(t[0]))out.push({start:t.index,end:t.index+t[0].length,source:t[0]});}
       }group=[];};
-    for(const t of tokens){if(group.length && !/^\s*$/.test(text.slice(group.at(-1).index+group.at(-1)[0].length,t.index)))flush();group.push(t);}flush();return out;
+    for(const t of tokens){if(/^[A-Za-z]{2,}$/.test(t[0])&&!mathWords.has(t[0])){flush();continue;}if(group.length && !/^\s*$/.test(text.slice(group.at(-1).index+group.at(-1)[0].length,t.index)))flush();group.push(t);}flush();return out;
   }
   const skipSelector='script,style,svg,math,pre,code,kbd,samp,textarea,input,select,[contenteditable],[data-no-math],.page-text,.img-missing-name';
   function typeset(root=document.body) {
@@ -76,7 +93,7 @@
       for(const m of found){f.append(document.createTextNode(t.data.slice(last,m.start)));const math=node('math',null,[parseMath(m.source)]);math.classList.add('reader-math');math.setAttribute('display','inline');math.setAttribute('aria-label',m.source);math.dataset.mathSource=m.source;f.append(math);last=m.end;count++;}f.append(document.createTextNode(t.data.slice(last)));t.replaceWith(f);
     }return count;
   }
-  let adapter=null, units=[], links=new Map(), current='', frame=0, hold=null, navQuietUntil=0, refreshQueued=false;
+  let adapter=null, units=[], links=new Map(), current='', frame=0, hold=null, holdTimer=0, navQuietUntil=0, followTimer=0, refreshQueued=false;
   const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
   const visible=n=>!n.hidden && n.getClientRects().length>0;
   function headerOffset(){const h=document.querySelector('.topbar')||document.querySelector('body > header');const b=h?.getBoundingClientRect().bottom||0;return Math.max(0,b)+20;}
@@ -94,8 +111,15 @@
       for(const u of c.units){const a=document.createElement('a');a.href='#'+encodeURIComponent(u.id);a.dataset.readerUnit=u.id;a.dataset.readerChapterId=c.id;a.textContent=u.title_zh;list.append(a);}b.after(list);
     }
   }
+  function paperMenu(){
+    if(adapter?.kind!=='paper')return;let b=document.getElementById('readerContents');
+    if(!b){b=document.createElement('button');b.id='readerContents';b.type='button';b.className='tool-btn';b.textContent='目录';b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','paper-reader-nav');b.onclick=()=>{const open=document.body.classList.toggle('reader-toc-open');b.setAttribute('aria-expanded',String(open));if(open)requestAnimationFrame(()=>follow(links.get(current),true));};(document.querySelector('.topbar-tools')||document.querySelector('.topbar')).append(b);}
+    if(b.hidden!==!adapter.nav)b.hidden=!adapter.nav;if(adapter.nav)adapter.nav.id='paper-reader-nav';else document.body.classList.remove('reader-toc-open');
+  }
+  function closePaperMenu(){document.body.classList.remove('reader-toc-open');document.getElementById('readerContents')?.setAttribute('aria-expanded','false');}
   function follow(link,force=false){
-    if(!adapter?.nav || !visible(link) || (!force&&performance.now()<navQuietUntil))return;
+    if(!adapter?.nav || !link || !visible(link))return;
+    if(!force&&performance.now()<navQuietUntil){clearTimeout(followTimer);followTimer=setTimeout(()=>follow(links.get(current)),navQuietUntil-performance.now()+24);return;}
     const box=adapter.nav.getBoundingClientRect(),r=link.getBoundingClientRect(),pad=24;
     if(r.top>=box.top+pad && r.bottom<=box.bottom-pad)return;
     const target=adapter.nav.scrollTop+r.top-box.top-Math.max(pad,(box.height-r.height)*.42);
@@ -121,21 +145,23 @@
   const schedule=()=>{if(!frame)frame=requestAnimationFrame(spy);};
   function refresh(){refreshQueued=false;projectLinks();
     const synopsis=document.querySelector('.topbar .sub-title'),intro=document.querySelector('.content .intro');
-    if(synopsis&&intro&&!intro.querySelector('.course-synopsis')){const copy=document.createElement('p');copy.className='course-synopsis';copy.append(...[...synopsis.childNodes].map(n=>n.cloneNode(true)));intro.append(copy);}
-    typeset(document.body);adapter=identify();units=adapter?[...document.querySelectorAll(adapter.selector)]:[];links=new Map(adapter?[...document.querySelectorAll(adapter.link)].map(n=>[adapter.linkId(n),n]):[]);
+    if(synopsis&&intro&&!intro.querySelector('.course-synopsis')&&!intro.textContent.replace(/\s/g,'').includes((synopsis.firstElementChild||synopsis).textContent.replace(/\s/g,''))){const copy=document.createElement('p');copy.className='course-synopsis';copy.append(...[...synopsis.childNodes].map(n=>n.cloneNode(true)));intro.append(copy);}
+    typeset(document.body);adapter=identify();units=adapter?[...document.querySelectorAll(adapter.selector)]:[];links=new Map(adapter?[...document.querySelectorAll(adapter.link)].map(n=>[adapter.linkId(n),n]):[]);paperMenu();
     if(adapter){document.documentElement.dataset.reader=adapter.kind;if(adapter.nav){adapter.nav.classList.add('reader-nav');if(!adapter.nav.dataset.readerEvents){adapter.nav.dataset.readerEvents='1';for(const e of ['wheel','touchstart','pointerdown','keydown'])adapter.nav.addEventListener(e,()=>{navQuietUntil=performance.now()+1600;},{passive:true});}}}
     setOffset();schedule();
   }
   function queueRefresh(){if(!refreshQueued){refreshQueued=true;requestAnimationFrame(refresh);}}
-  function navigate(id){const n=document.getElementById(id);if(!n || !visible(n))return false;hold={id,until:performance.now()+1000};activate(id,true);
+  function navigate(id){const n=document.getElementById(id);if(!n || !visible(n))return false;hold={id,until:performance.now()+1000};clearTimeout(holdTimer);holdTimer=setTimeout(()=>{hold=null;schedule();},1020);activate(id,true);
     const top=window.scrollY+n.getBoundingClientRect().top-headerOffset();window.scrollTo({top:Math.max(0,top),behavior:reduced()?'instant':'smooth'});return true;
   }
   document.addEventListener('click',e=>{const a=e.target.closest('.toc-sub,[data-scroll-block],[data-reader-unit]');if(!a||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
     const id=a.dataset.scrollBlock||a.dataset.readerUnit||decodeURIComponent(a.hash.slice(1));
     if(a.dataset.readerUnit){const b=document.querySelector(`#chapters [data-chapter="${CSS.escape(a.dataset.readerChapterId)}"]`);b?.click();requestAnimationFrame(()=>{refresh();navigate(id);if(visible(document.getElementById(id)))history.replaceState(null,'','#'+encodeURIComponent(id));});}
-    else if(navigate(id)){if(!a.dataset.scrollBlock)history.replaceState(null,'','#'+encodeURIComponent(id));document.body.classList.remove('toc-open');document.getElementById('tocBtn')?.setAttribute('aria-expanded','false');}
+    else if(navigate(id)){if(!a.dataset.scrollBlock)history.replaceState(null,'','#'+encodeURIComponent(id));document.body.classList.remove('toc-open');document.getElementById('tocBtn')?.setAttribute('aria-expanded','false');closePaperMenu();}
     else return;e.preventDefault();e.stopImmediatePropagation();
   },true);
+  document.addEventListener('click',e=>{if(document.body.classList.contains('reader-toc-open')&&!e.target.closest('.study-nav,#readerContents'))closePaperMenu();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closePaperMenu();});
   for(const event of ['scroll','resize','hashchange'])window.addEventListener(event,event==='resize'?()=>{setOffset();schedule();}:schedule,{passive:true});
   for(const event of ['wheel','touchstart','pointerdown','keydown'])window.addEventListener(event,()=>{hold=null;},{passive:true});
   const observer=new MutationObserver(records=>{if(records.some(r=>r.type==='childList'&&[...r.addedNodes].some(n=>n.nodeType===1&&!n.matches('math,.reader-unit-list')&&!n.closest('math')) || r.type==='attributes'&&['hidden','data-lang'].includes(r.attributeName)))queueRefresh();});
@@ -143,6 +169,6 @@
   observer.observe(document.documentElement,{attributes:true,attributeFilter:['data-lang']});
   const header=document.querySelector('.topbar')||document.querySelector('body > header');if(header&&window.ResizeObserver)new ResizeObserver(()=>{setOffset();schedule();}).observe(header);
   document.addEventListener('load',schedule,true);document.addEventListener('toggle',schedule,true);
-  window.NBAReader={version:'2026.10.31',typeset,parseMath,refresh,navigate,current:()=>current,unresolved:(root=document.body)=>{const out=[],w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);while(w.nextNode()){const n=w.currentNode;if(/[_^\\]/.test(n.data)&&!n.parentElement.closest(skipSelector))out.push(n.data.trim());}return out;}};
+  window.NBAReader={version:'2026.10.31',typeset,parseMath,refresh,navigate,current:()=>current,unresolved:(root=document.body)=>{const out=[],w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);while(w.nextNode()){const n=w.currentNode,prose=n.data.replace(/https?:\/\/[^\s，。；：！？]+|[A-Za-z0-9_./-]+\.(?:pdf|json|js|css|html|py|png|jpg|mp3|zip)\b/gi,'');if(/[_^\\]/.test(prose)&&!n.parentElement.closest(skipSelector))out.push(n.data.trim());}return out;}};
   refresh();
 })();

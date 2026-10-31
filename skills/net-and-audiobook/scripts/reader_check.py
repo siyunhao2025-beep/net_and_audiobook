@@ -10,7 +10,7 @@ from make_demo import make
 from build_site import build
 
 SKILL=Path(__file__).resolve().parents[1]
-CASES=['L >> λ_D','N_D >> 1','ω_pe τ > 1','v_th = (k_B T_e / m_e)^{1/2}','T_e/T_i','R^2','B_z','\\omega_{pe} > 1','cm^-3']
+CASES=['L >> λ_D','N_D >> 1','ω_pe τ > 1','v_th = (k_B T_e / m_e)^{1/2}','T_e/T_i','R^2','B_z','\\omega_{pe} > 1','cm^-3','v_⊥²/B','1.99x10^30','k_BT_e','θ_Bn','sigma_sb','dT/dr = -k_B T_e']
 
 def legacy_fixture(path,kind):
     path.mkdir(parents=True,exist_ok=True)
@@ -70,6 +70,7 @@ def run(out,executable=None):
                                     assert page.locator('[aria-current="location"]').count()==1,'Multiple active knowledge points'
                                     assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+2'),'Page overflow'
                                 if kind=='project' and width==390:page.locator('#menu').click()
+                                if kind=='paper' and width==390:page.locator('#readerContents').click()
                                 target=page.locator('[data-reader-unit],.toc-sub,[data-scroll-block]').nth(count//3);id=target.get_attribute('data-reader-unit') or target.get_attribute('data-scroll-block') or target.get_attribute('href')[1:];target.click()
                                 page.wait_for_function('id=>window.NBAReader.current()===id',arg=id)
                                 page.wait_for_function("id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--reader-offset')))<5",arg=id)
@@ -79,7 +80,9 @@ def run(out,executable=None):
                                 assert first_unit.locator('math.reader-math msub').count()>=5,'Subscripts missing'
                                 assert first_unit.locator('math.reader-math msup').count()>=2,'Powers missing'
                                 assert first_unit.locator('math.reader-math mfrac').count()>=1,'Fractions missing'
-                                assert first_unit.locator('math[data-math-source="cm^-3"] msup').count()==1 and first_unit.locator('math[data-math-source="cm^-3"] msup').inner_text().replace('\n','').replace(' ','').endswith('−3'),'Negative exponent changed meaning'
+                                assert first_unit.locator('math[data-math-source="cm^-3"] msup').count()==1 and first_unit.locator('math[data-math-source="cm^-3"] msup').text_content().replace('\n','').replace(' ','').endswith('−3'),'Negative exponent changed meaning'
+                                derivative=first_unit.locator('math[data-math-source="dT/dr = -k_B T_e"] mfrac').first
+                                assert derivative.locator(':scope > mrow').all_text_contents()==['dT','dr'],'Derivative numerator/denominator changed meaning'
                                 if kind!='project':
                                     assert first_unit.locator('code').inner_text()=='n_e report_data.json','Code was typeset'
                                     assert first_unit.locator('a').inner_text()=='source_file.json','Filename was changed'

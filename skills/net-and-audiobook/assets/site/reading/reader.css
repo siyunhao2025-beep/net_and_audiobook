@@ -3,12 +3,13 @@
 :root[data-theme=dark]{--reader-bg:#131c23;--reader-paper:#1b2832;--reader-soft:#20313d;--reader-ink:#e5edf1;--reader-muted:#afc1cc;--reader-line:#354956;--reader-accent:#83d5ca;--reader-active:#24423f;--reader-warm:#332d23;--reader-warm-ink:#f0ce89}
 :root[data-reader]{scroll-padding-top:var(--reader-offset);--bg:var(--reader-bg);--panel:var(--reader-paper);--panel-2:var(--reader-soft);--paper:var(--reader-paper);--text:var(--reader-ink);--ink:var(--reader-ink);--muted:var(--reader-muted);--border:var(--reader-line);--line:var(--reader-line);--accent:var(--reader-accent);--blue:var(--reader-accent);--accent-soft:var(--reader-active);--soft:var(--reader-active);--nc-bg:var(--reader-warm);--nc-ink:var(--reader-warm-ink);--maxw:1440px}
 html[data-reader] body{background:var(--reader-bg);color:var(--reader-ink);font-size:16px;line-height:1.85}
-.reader-math{font-family:"Times New Roman","Cambria Math","STIX Two Math",serif;font-size:1.08em;vertical-align:baseline;white-space:nowrap;color:inherit}
+.reader-math{font-family:"Times New Roman","Cambria Math","STIX Two Math",serif;font-size:1.08em;vertical-align:middle;white-space:nowrap;color:inherit;display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden}
 .reader-nav{overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--reader-line) transparent;scrollbar-gutter:stable;overflow-anchor:none}
 .reader-nav a,.reader-nav button{transition:background-color .15s,color .15s,border-color .15s;overflow-wrap:anywhere}
 .reader-nav .reader-current,.reader-nav .reader-current:hover,.block-nav a.reader-current{position:relative;background:var(--reader-active)!important;color:var(--reader-accent)!important;border-left:3px solid var(--reader-accent)!important;border-radius:5px;font-weight:750;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--reader-accent) 12%,transparent)}
 .reader-nav .reader-current:focus-visible{outline:2px solid var(--reader-accent);outline-offset:2px}
 .reader-context>.toc-link{font-weight:700;color:var(--reader-ink)!important;background:transparent!important}
+#readerContents{display:none}
 .toc-row.active>.toc-link{background:transparent!important;color:var(--reader-muted);font-weight:600}
 .toc-row.read>.toc-link{color:var(--reader-muted)}
 html[data-reader=course] .layout{gap:24px;padding:24px}
@@ -16,6 +17,9 @@ html[data-reader=course] .toc{top:var(--reader-offset);max-height:calc(100dvh - 
 html[data-reader=course] .toc-link{font-size:.9rem;padding:9px 8px}
 html[data-reader=course] .toc-sub{font-size:.85rem;line-height:1.7;padding:7px 10px;margin:3px 0;border-left:3px solid transparent;color:var(--reader-muted)}
 html[data-reader=course] .toc-subs{margin-left:8px;padding-left:7px}
+html[data-reader=course] .toc-sub .t-en{display:block;font-size:.76rem;font-weight:400;line-height:1.5;margin-top:3px}
+html[data-reader=course] .block>h4 .t-en,html[data-reader=course] .btn .t-en{margin-left:6px;font-size:.72rem;font-weight:500}
+html[data-reader=course] .unit-head h3 .t-en{display:block;font-size:.95rem;font-weight:500;color:var(--reader-muted);margin-top:6px}
 html[data-reader=course] .topbar{background:var(--reader-paper);padding:10px 24px;gap:12px}
 html[data-reader=course] .topbar-main{flex:1 1 300px;min-width:0}
 html[data-reader=course] .topbar-title{min-width:0}
@@ -65,5 +69,6 @@ html[data-reader=project] .label{color:var(--reader-accent);font-weight:750}
 @media(max-width:1000px){html[data-reader=paper] .study-shell{grid-template-columns:240px minmax(0,1fr)}html[data-reader=paper] .sentence-pair{grid-template-columns:1fr}html[data-reader=paper] .sentence-pair>div+div{border-left:0;border-top:1px dashed var(--reader-line)}}
 @media(max-width:899px){html[data-reader=course] .toc{top:var(--reader-offset);max-height:calc(100dvh - var(--reader-offset));bottom:0}html[data-reader=course] .layout{padding:14px}html[data-reader=course] .topbar{padding:9px 12px}html[data-reader=course] .chapter{padding:16px}html[data-reader=course] .unit{padding:16px}}
 @media(max-width:760px){html[data-reader=paper] .study-shell{display:block;padding:12px}html[data-reader=paper] .study-nav{position:relative;top:0;max-height:280px;margin-bottom:16px}html[data-reader=paper] .block-head{padding:16px}html[data-reader=paper] .sentence-pair>div{padding:16px}html[data-reader=project] .shell{display:block}html[data-reader=project] #nav{max-height:65dvh}html[data-reader=project] .unit{padding:18px}}
+@media(max-width:840px){html[data-reader=paper] #readerContents{display:inline-flex}html[data-reader=paper] #readerContents[hidden]{display:none}html[data-reader=paper] .top-search{display:block;flex:1 1 100%;order:5;margin:0}html[data-reader=paper] .top-search input{width:100%}html[data-reader=paper] .topbar-tools{flex-wrap:wrap}html[data-reader=paper] .study-nav{position:fixed;z-index:350;top:var(--reader-offset);left:10px;width:min(350px,calc(100vw - 20px));max-height:calc(100dvh - var(--reader-offset) - 12px);margin:0;visibility:hidden;transform:translateX(-112%);transition:transform .2s ease,visibility .2s;box-shadow:0 12px 40px #0003}html[data-reader=paper] body.reader-toc-open .study-nav{visibility:visible;transform:none}html[data-reader=paper] .block-nav{display:grid;grid-template-columns:minmax(0,1fr);overflow:visible}html[data-reader=paper] .block-nav a{border-bottom:0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.reader-nav *{transition:none!important}}
 @media print{.reader-nav{display:none!important}html[data-reader] body{background:white;color:black}.reader-math{color:black}}
