@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="442" viewBox="0 0 1200 442" role="img" aria-labelledby="title desc">
+<title id="title">net-and-audiobook：论文，换个打开方式</title>
+<desc id="desc">将PDF和PPT经过来源核对，制作成分章节双语学习网页与慢速拼读有声书；支持打卡、追溯与暂停续做。</desc>
+<rect x="0" y="0" width="1200" height="442" rx="24" fill="#111f2c" />
+<path d="M790 0V442" stroke="#37515d" stroke-opacity=".55"/>
+<circle cx="1110" cy="54" r="2" fill="#8cdec3"/><circle cx="846" cy="390" r="2" fill="#fff9ec"/><path d="M1143 382h12m-6-6v12" stroke="#ffa17e"/>
+<text x="58" y="62" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="600" fill="#8cdec3" >SPACE WEATHER  /  READ · LISTEN · LEARN</text>
+<text x="58" y="149" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="58" font-weight="700" fill="#fff9ec" >net-and-audiobook</text>
+<text x="58" y="222" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="43" font-weight="650" fill="#fff9ec" >论文，换个打开方式。</text>
+<text x="58" y="270" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="25" font-weight="400" fill="#adc1cb" >分章节双语网页  +  慢速拼读有声书</text>
+<path d="M58 311H731" stroke="#37515d"/>
+<circle cx="65" cy="353" r="5" fill="#8cdec3"/>
+<text x="82" y="362" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="25" font-weight="500" fill="#fff9ec" >来源可查</text>
+<circle cx="288" cy="353" r="5" fill="#8cdec3"/>
+<text x="305" y="362" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="25" font-weight="500" fill="#fff9ec" >逐节打卡</text>
+<circle cx="511" cy="353" r="5" fill="#8cdec3"/>
+<text x="528" y="362" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="25" font-weight="500" fill="#fff9ec" >暂停续做</text>
+<text x="58" y="411" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="18" font-weight="400" fill="#adc1cb" >A research note can become a learning companion.</text>
+<g id="source-pages" transform="translate(821 76) rotate(-8 100 140)">
+<rect x="8" y="0" width="192" height="253" rx="11" fill="#47645e" />
+<rect x="0" y="14" width="192" height="253" rx="11" fill="#fff9ec" />
+<text x="20" y="54" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="23" font-weight="700" fill="#111f2c" >PDF / PPT</text>
+<path d="M20 76h148M20 100h132M20 118h148M20 136h112" stroke="#879b91" stroke-width="5"/>
+<rect x="20" y="164" width="146" height="68" rx="6" fill="#e7eee2" />
+<text x="33" y="206" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="25" font-weight="600" fill="#284f47" >逐页核对</text>
+</g>
+<g id="listening-output" transform="translate(944 136) rotate(5 100 120)">
+<rect x="5" y="7" width="198" height="244" rx="15" fill="#07131c" />
+<rect x="0" y="0" width="198" height="244" rx="15" fill="#8cdec3" />
+<text x="22" y="43" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="21" font-weight="700" fill="#111f2c" >LEARNING</text>
+<text x="22" y="72" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="21" font-weight="700" fill="#111f2c" >COMPANION</text>
+<path d="M23 111v12m12-23v34m12-48v61m12-72v83m12-60v36m12-24v13m12-30v47m12-62v78m12-49v19m12-34v50m12-37v24m12-20v17" stroke="#24594e" stroke-width="5" stroke-linecap="round"/>
+<circle cx="43" cy="197" r="22" fill="#111f2c"/><path d="M38 186l16 11-16 11Z" fill="#fff9ec"/>
+<text x="79" y="191" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="700" fill="#111f2c" >ZH · EN</text>
+<text x="79" y="218" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="700" fill="#111f2c" >A–Z</text>
+</g>
+</svg>

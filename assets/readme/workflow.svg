@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="548" viewBox="0 0 1200 548" role="img" aria-labelledby="title desc">
+<title id="title">从来源材料到网页与名词有声书的制作流程</title>
+<desc id="desc">PDF和PPT经过来源核对及章节计划，分为双语网页与名词有声书两条输出。代理理解内容，脚本完成可重复的构建、校验与发布。</desc>
+<rect x="0" y="0" width="1200" height="548" rx="20" fill="#fff9ec" />
+<text x="54" y="61" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="38" font-weight="700" fill="#111f2c" >一份材料，两条学习航线</text>
+<text x="54" y="99" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="23" font-weight="400" fill="#526c70" >先读懂、再编排；页面和音频共享同一份来源记录。</text>
+<rect x="54" y="157" width="234" height="128" rx="13" fill="#eee9dc" />
+<text x="76" y="190" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="19" font-weight="600" fill="#526c70" >01</text>
+<text x="76" y="231" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="29" font-weight="700" fill="#111f2c" >PDF / PPT</text>
+<text x="76" y="263" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="20" font-weight="400" fill="#526c70" >论文与课程材料</text>
+<rect x="340" y="157" width="234" height="128" rx="13" fill="#e2ece1" />
+<text x="362" y="190" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="19" font-weight="600" fill="#526c70" >02</text>
+<text x="362" y="231" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="29" font-weight="700" fill="#111f2c" >来源核对</text>
+<text x="362" y="263" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="20" font-weight="400" fill="#526c70" >原文、图表、定义</text>
+<rect x="626" y="157" width="234" height="128" rx="13" fill="#e2ece1" />
+<text x="648" y="190" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="19" font-weight="600" fill="#526c70" >03</text>
+<text x="648" y="231" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="29" font-weight="700" fill="#111f2c" >章节计划</text>
+<text x="648" y="263" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="20" font-weight="400" fill="#526c70" >知识点与术语</text>
+<path d="M288 220h41m-9-7 9 7-9 7M574 220h41m-9-7 9 7-9 7" fill="none" stroke="#536e70" stroke-width="2.5"/>
+<path d="M860 221h42v-22h26m-9-7 9 7-9 7M902 221v190h26m-9-7 9 7-9 7" fill="none" stroke="#536e70" stroke-width="2.5"/>
+<rect x="928" y="157" width="218" height="128" rx="13" fill="#111f2c" />
+<text x="950" y="198" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="29" font-weight="700" fill="#fff9ec" >双语网页</text>
+<text x="950" y="238" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="21" font-weight="400" fill="#8cdec3" >读 · 查 · 打卡</text>
+<rect x="928" y="343" width="218" height="128" rx="13" fill="#111f2c" />
+<text x="950" y="384" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="27" font-weight="700" fill="#fff9ec" >名词有声书</text>
+<text x="950" y="424" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="21" font-weight="400" fill="#ffa17e" >听 · 拼 · 理解</text>
+<path d="M54 343H860" stroke="#b8c9c3"/>
+<text x="54" y="387" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="24" font-weight="600" fill="#111f2c" >代理负责逐页理解与编写教学内容。</text>
+<text x="54" y="426" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="23" font-weight="400" fill="#526c70" >脚本负责构建、合成、校验、打包与发布备份。</text>
+<text x="54" y="501" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="19" font-weight="500" fill="#526c70" >SHARED SOURCE REFERENCES  /  同一来源，分别适配阅读与聆听</text>
+</svg>

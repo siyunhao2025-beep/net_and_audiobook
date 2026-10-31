@@ -145,4 +145,20 @@ class PipelineTests(unittest.TestCase):
         (public / "paths.txt").write_text(private_example, encoding="utf-8")
         self.assertTrue(any(e == ["paths.txt", "private_home"] for e in scan(public)["errors"]))
 
+    def test_readme_image_allowlist_is_explicit_and_narrow(self):
+        from PIL import Image, PngImagePlugin
+        public = self.root / "public"; images = public / "assets/readme"; images.mkdir(parents=True)
+        shutil_source = self.inputs / "speed-source.png"
+        good = images / "demo-preview.png"; good.write_bytes(shutil_source.read_bytes())
+        self.assertTrue(scan(public)["errors"])
+        self.assertFalse(scan(public, allow_readme_images=True)["errors"])
+        bad = images / "fake-preview.png"; bad.write_text("not a PNG", encoding="utf-8")
+        self.assertTrue(scan(public, allow_readme_images=True)["errors"]); bad.unlink()
+        metadata = PngImagePlugin.PngInfo(); metadata.add_text("Comment", "private note")
+        with Image.open(good) as im: im.save(images / "metadata-preview.png", pnginfo=metadata)
+        self.assertTrue(any(e[0].endswith("metadata-preview.png") for e in scan(public, True)["errors"]))
+        (images / "metadata-preview.png").unlink()
+        (public / "unreviewed.png").write_bytes(good.read_bytes())
+        self.assertTrue(any(e[0] == "unreviewed.png" for e in scan(public, True)["errors"]))
+
 if __name__ == "__main__": unittest.main(verbosity=2)

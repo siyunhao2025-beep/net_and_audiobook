@@ -22,6 +22,8 @@ Windows原位写崩溃可能产生既非旧哈希也非新哈希的文件，发�
 
 排除原文/PDF、成品MP3/WAV、模型权重、语音缓存、浏览器配置、日志、.env、私有进度/账号、真实云配置和设备/用户路径。运行release_check并审查diff；它只是启发式检查，不证明完全无秘密。第三方SDK/字体/模型不随包分发，需要时从维护者来源安装并遵守各自许可。
 
+仓库自己的原创README演示截图可显式启用 `release_check.py --allow-readme-images`。该开关只允许 `assets/readme/` 中命名规范的PNG，核对真实签名、像素解码、体积、尺寸及元数据；默认扫描仍拒绝未审查的二进制。必须另做视觉核对，避免图片含账户、个人材料或地址栏；元数据检查不能证明画面没有隐私。
+
 使用GitHub插件读取仓库权限、分支和当前head。空仓库可先创建最终README，再创建包含完整payload的tree与commit；已有仓库先读内容，在独立分支/草稿PR或用户授权分支更新。更新ref使用expected_sha，禁止force；若head已变先重新读取合并。完成后从远端核对SKILL.md、脚本和文件树，不能仅凭本地commit称已上传。
 
 skill自身可安装包不含README/CHANGELOG等维护杂项；仓库根README/quality/CI可单独存在。个人skill安装按当前skill创建工具的规范处理，不把可安装副本、缓存或公开发布与用户资料混在一起。

@@ -1,10 +1,18 @@
 {
   "schema_version": 1,
   "sha256": {
-    ".github/workflows/validate.yml": "102d87b551a96197cdba9c87e085b9515ae663c907d9f98ed2542fec6dbcd665",
+    ".github/workflows/validate.yml": "2e39f524226251c3622d9496a1d524d4da6232c66906291b3dfc7afa8b0ee1a8",
     ".gitignore": "154dc13facba497c4956c1e048020db715d4ec40b90e04f3871100551e8a5b0a",
-    "README.md": "75766162a511bd994d3581872c71332ce855212c5353ed7def5b685efd96b163",
-    "quality/VALIDATION.md": "51f78ed5e5b6acac9726282c3c2d5ce0b07bad31d7ddd64af2ef9ef67cf15aee",
+    "README.md": "64d1da69b6e5d27c4b758cf5a21d8b381c760ce777d9266c1a6a38730c14818d",
+    "assets/readme/audiobook-preview.png": "3a9e2c99223c1a3d55cfb9eec72b4c390295bd32044ba42ac39ca2965f97731d",
+    "assets/readme/hero.svg": "c3c1b53a51e3bdf02b73d09406727d5b2d1333b36a9c2edd91bcf4039e769512",
+    "assets/readme/learning-preview.png": "ef742e3bb06859dfe804f26da5986761f72d6b4a74fffd555e51b789c66d756a",
+    "assets/readme/listening.svg": "49e788b21316e3c089943cd42c2b3e345236d7e14232fb1557fdc861623acf0f",
+    "assets/readme/workflow.svg": "6c2dba82929209bfa1ed243038184d27ebf4d960cb5b3cb90c6b9249750379c3",
+    "docs/README_DESIGN.md": "a6b816c7ef6dad90af676de5ffdfe04cc8b78b489a1962bff6302d4586b4168d",
+    "docs/USAGE.md": "9956fa79aa2e164280b17ad036e63b9e3b9fa9ff9743c19a7673dce50d26f307",
+    "quality/README_REFRESH.md": "b97729a112bc6cf5a87e5a00c0cc8ccae06819a4820f8ed0c6a533c2bead8298",
+    "quality/VALIDATION.md": "88864060da3e31d74a58bebe4869e7a0d397f6cc26f2c92c478365b30ee1ddf9",
     "quality/source-audit-summary.json": "922b8d2e7c1bd329dd21b444a23776a6673dafc146a56e4b440ce71ab9ba8bdf",
     "skills/net-and-audiobook/.gitignore": "897ccca082344b1dd18033ac495bf06fa7f58d8df99ace698e1d81cf53d64e92",
     "skills/net-and-audiobook/SKILL.md": "583711f558148c035139a0bdadca078f5655afc1b0d639a92a9b7761876179a0",
@@ -18,7 +26,7 @@
     "skills/net-and-audiobook/assets/site/sw.js": "6879f26e881a640e436cb43b577d273d9d8303bc5ba59d1fc533d4730cb4e1ee",
     "skills/net-and-audiobook/references/formulas.md": "9ab28d5352498078689a8fba95774458dd3543d262b76ae423dd7dc15c9f36f9",
     "skills/net-and-audiobook/references/project-schema.md": "849b55f6db1406b237fe4a5458d0d310b216838d36fda09a8ed82150dfe24f0d",
-    "skills/net-and-audiobook/references/publishing.md": "fd901fbf0b5c1ea5b86854de3625ddb509d14e2ef993e55334d1d19508b93347",
+    "skills/net-and-audiobook/references/publishing.md": "7e5e9e90dfacdd374e939d4bc6c99e321b8c896a4958435fa0229c2cfffc713b",
     "skills/net-and-audiobook/references/remote-and-recovery.md": "dc0ff4bb3913818af5d46c6d50bf9aea76b3249d67022a973bf168d56182d28a",
     "skills/net-and-audiobook/references/source-case-audit.md": "77b5ebf049090df5416fe9144143243f2e5634257adadb40fabd9a7e63bdf65b",
     "skills/net-and-audiobook/references/sources.md": "a9fc3ca1a1672c5a197e90e64f661b1760ebc13ba4abf26103413481ee2715a2",
@@ -31,11 +39,14 @@
     "skills/net-and-audiobook/scripts/common.py": "83d857b021d8426d0ac98e391beab750ce422664e458894d52253ee5ab836efb",
     "skills/net-and-audiobook/scripts/make_demo.py": "d8b168ea9f2b761adec69da19e8af6384301bcf58fff86dca08908c8ac093824",
     "skills/net-and-audiobook/scripts/publish.py": "592a21fe259a5c231c976d2998d770506d5f13cdeed06c81f3bff32f5eaed14f",
-    "skills/net-and-audiobook/scripts/release_check.py": "937019c1b47bfc9c2a5829ac3c91bfb858c2e458fd8226e3ee135fd4bf1086ba",
+    "skills/net-and-audiobook/scripts/release_check.py": "be0dbd16d1732731bf1238f1f8771ca64ae3f578155ef3b199746a7d9f648d13",
     "skills/net-and-audiobook/scripts/requirements.txt": "922db9f8490febb6eeee05e2714f23f8f0fde7c50432a3739361842d2cd6de7c",
-    "skills/net-and-audiobook/scripts/self_test.py": "bacf6c36838c46c5370500936a638cdfbd2c220ccfaa3e4f59691fd2d57ae422",
+    "skills/net-and-audiobook/scripts/self_test.py": "7ebfc742bb36d60885cc0ac1a2bce7b1367fd6ec8c8f837b2d72a9ee248d2e3c",
     "skills/net-and-audiobook/scripts/synthesize.py": "7d95127f2fd4c73048616a0bbef004fd58896d91819230534e187ecd8ee46b56",
-    "skills/net-and-audiobook/scripts/verify.py": "210379f9fcf12a811f956f99455df27b4fae5601682261a09a1127d4cb455c48"
+    "skills/net-and-audiobook/scripts/verify.py": "210379f9fcf12a811f956f99455df27b4fae5601682261a09a1127d4cb455c48",
+    "tools/build_readme_assets.py": "d41dcbd63a004861e0291b6aa24549fc2836aaf314dc88d335e76f6b31eb4d51",
+    "tools/capture_readme_demo.py": "dd2101f1d9d87b07a3093d9d83ee8a0a314812ce72cbccc14a1f8b38f5af4fa2",
+    "tools/check_readme.py": "f5d6ae67317c2bb74b1ec2ebb24c7470bbdfc90b34186de0c8d621f891b25e44"
   },
   "self_excluded": true
 }

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="350" viewBox="0 0 1200 350" role="img" aria-labelledby="title desc">
+<title id="title">每个名词的五段朗读顺序与原生语速</title>
+<desc id="desc">中文名词、英文整词或短语、完整字母拼写、中文标准解释、通俗地说。以Solar wind的全部字母为例，英文约0.7倍速，拼写约0.8倍速。</desc>
+<rect x="0" y="0" width="1200" height="350" rx="20" fill="#111f2c" />
+<text x="54" y="61" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="38" font-weight="650" fill="#fff9ec" >一个名词，听完整再出发。</text>
+<text x="54" y="101" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="24" font-weight="400" fill="#adc1cb" >英文慢读，字母完整；播放器建议保持 1×。</text>
+<path d="M54 141h190" stroke="#8cdec3" stroke-width="3"/>
+<text x="54" y="176" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="600" fill="#adc1cb" >01</text>
+<text x="54" y="218" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="28" font-weight="650" fill="#fff9ec" >中文名词</text>
+<text x="54" y="257" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="21" font-weight="400" fill="#adc1cb" >太阳风</text>
+<text x="54" y="321" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="22" font-weight="600" fill="#8cdec3" >-8%</text>
+<path d="M277 141h190" stroke="#8cdec3" stroke-width="3"/>
+<text x="277" y="176" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="600" fill="#adc1cb" >02</text>
+<text x="277" y="218" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="28" font-weight="650" fill="#fff9ec" >英文慢读</text>
+<text x="277" y="257" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="21" font-weight="400" fill="#adc1cb" >Solar wind</text>
+<text x="277" y="321" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="22" font-weight="600" fill="#8cdec3" >-30% ≈ 0.7×</text>
+<path d="M500 141h190" stroke="#8cdec3" stroke-width="3"/>
+<text x="500" y="176" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="600" fill="#adc1cb" >03</text>
+<text x="500" y="218" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="28" font-weight="650" fill="#fff9ec" >完整拼写</text>
+<text x="500" y="252" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="19" font-weight="400" fill="#adc1cb" >S, O, L, A, R.</text>
+<text x="500" y="321" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="22" font-weight="600" fill="#8cdec3" >-20% ≈ 0.8×</text>
+<text x="500" y="278" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="19" font-weight="400" fill="#adc1cb" >W, I, N, D.</text>
+<path d="M723 141h190" stroke="#ffa17e" stroke-width="3"/>
+<text x="723" y="176" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="600" fill="#adc1cb" >04</text>
+<text x="723" y="218" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="28" font-weight="650" fill="#fff9ec" >标准解释</text>
+<text x="723" y="257" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="21" font-weight="400" fill="#adc1cb" >准确的中文定义</text>
+<text x="723" y="321" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="22" font-weight="600" fill="#ffa17e" >-3%</text>
+<path d="M946 141h190" stroke="#ffa17e" stroke-width="3"/>
+<text x="946" y="176" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="20" font-weight="600" fill="#adc1cb" >05</text>
+<text x="946" y="218" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="28" font-weight="650" fill="#fff9ec" >通俗地说</text>
+<text x="946" y="257" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,PingFang SC,sans-serif" font-size="19" font-weight="400" fill="#adc1cb" >听得懂的中文解释</text>
+<text x="946" y="321" font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="22" font-weight="600" fill="#ffa17e" >-3%</text>
+</svg>

@@ -20,4 +20,5 @@ jobs:
       - run: node --check skills/net-and-audiobook/assets/site/app.js
       - run: node --check skills/net-and-audiobook/assets/site/audiobook/app.js
       - run: node --check skills/net-and-audiobook/assets/site/sw.js
-      - run: python skills/net-and-audiobook/scripts/release_check.py --root .
+      - run: python tools/check_readme.py
+      - run: python skills/net-and-audiobook/scripts/release_check.py --root . --allow-readme-images
