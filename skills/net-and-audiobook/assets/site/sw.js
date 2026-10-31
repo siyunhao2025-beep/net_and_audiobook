@@ -1,6 +1,6 @@
 /* Cache the application shell, never media, range requests, error pages or HTML fallbacks for assets. */
 const PREFIX = "nba-__PROJECT_ID__-", CACHE = PREFIX + "__BUILD_VERSION__";
-const SHELL = ["./index.html", "./styles.css", "./app.js", "./project.js", "./app.webmanifest", "./audiobook/index.html", "./audiobook/app.js", "./audiobook/catalog.js"];
+const SHELL = ["./index.html", "./styles.css", "./app.js", "./reading/reader.js", "./reading/reader.css", "./project.js", "./app.webmanifest", "./audiobook/index.html", "./audiobook/app.js", "./audiobook/catalog.js"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith(PREFIX) && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {

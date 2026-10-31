@@ -1,0 +1,69 @@
+/* Shared reading palette and unit navigation, layered over existing site styles. */
+:root{--reader-bg:#f3f5f5;--reader-paper:#fff;--reader-soft:#f5f8f8;--reader-ink:#1d303b;--reader-muted:#526773;--reader-line:#d9e2e5;--reader-accent:#086e70;--reader-active:#e0f1ef;--reader-warm:#fff7e8;--reader-warm-ink:#735320;--reader-offset:90px}
+:root[data-theme=dark]{--reader-bg:#131c23;--reader-paper:#1b2832;--reader-soft:#20313d;--reader-ink:#e5edf1;--reader-muted:#afc1cc;--reader-line:#354956;--reader-accent:#83d5ca;--reader-active:#24423f;--reader-warm:#332d23;--reader-warm-ink:#f0ce89}
+html[data-reader]{scroll-padding-top:var(--reader-offset);--bg:var(--reader-bg);--panel:var(--reader-paper);--panel-2:var(--reader-soft);--paper:var(--reader-paper);--text:var(--reader-ink);--ink:var(--reader-ink);--muted:var(--reader-muted);--border:var(--reader-line);--line:var(--reader-line);--accent:var(--reader-accent);--blue:var(--reader-accent);--accent-soft:var(--reader-active);--soft:var(--reader-active);--nc-bg:var(--reader-warm);--nc-ink:var(--reader-warm-ink);--maxw:1440px}
+html[data-reader] body{background:var(--reader-bg);color:var(--reader-ink);font-size:16px;line-height:1.85}
+.reader-math{font-family:"Times New Roman","Cambria Math","STIX Two Math",serif;font-size:1.08em;vertical-align:baseline;white-space:nowrap;color:inherit}
+.reader-nav{overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--reader-line) transparent;scrollbar-gutter:stable;overflow-anchor:none}
+.reader-nav a,.reader-nav button{transition:background-color .15s,color .15s,border-color .15s;overflow-wrap:anywhere}
+.reader-nav .reader-current,.reader-nav .reader-current:hover,.block-nav a.reader-current{position:relative;background:var(--reader-active)!important;color:var(--reader-accent)!important;border-left:3px solid var(--reader-accent)!important;border-radius:5px;font-weight:750;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--reader-accent) 12%,transparent)}
+.reader-nav .reader-current:focus-visible{outline:2px solid var(--reader-accent);outline-offset:2px}
+.reader-context>.toc-link{font-weight:700;color:var(--reader-ink)!important;background:transparent!important}
+.toc-row.active>.toc-link{background:transparent!important;color:var(--reader-muted);font-weight:600}
+.toc-row.read>.toc-link{color:var(--reader-muted)}
+html[data-reader=course] .layout{gap:24px;padding:24px}
+html[data-reader=course] .toc{top:var(--reader-offset);max-height:calc(100dvh - var(--reader-offset) - 18px);padding:16px 12px;background:var(--reader-paper)}
+html[data-reader=course] .toc-link{font-size:.9rem;padding:9px 8px}
+html[data-reader=course] .toc-sub{font-size:.85rem;line-height:1.7;padding:7px 10px;margin:3px 0;border-left:3px solid transparent;color:var(--reader-muted)}
+html[data-reader=course] .toc-subs{margin-left:8px;padding-left:7px}
+html[data-reader=course] .topbar{background:var(--reader-paper);padding:10px 24px;gap:12px}
+html[data-reader=course] .topbar-main{flex:1 1 300px;min-width:0}
+html[data-reader=course] .topbar-title{min-width:0}
+html[data-reader=course] .topbar-title strong{max-width:none;white-space:normal;text-overflow:clip;line-height:1.5;font-size:.98rem}
+html[data-reader=course] .sub-title{display:none}
+html[data-reader=course] .chapter{padding:24px;background:var(--reader-paper);border-radius:12px;margin-bottom:24px}
+html[data-reader=course] .ch-title{font-size:1.5rem;line-height:1.6;margin:6px 0 12px}
+html[data-reader=course] .unit{padding:22px;background:var(--reader-paper);border-radius:10px;scroll-margin-top:var(--reader-offset);box-shadow:0 3px 12px #102b3f04}
+html[data-reader=course] .units{gap:20px}
+html[data-reader=course] .unit-title{font-size:1.17rem;line-height:1.65;color:var(--reader-ink);margin-bottom:8px}
+html[data-reader=course] .unit.done{background:var(--reader-paper);border-color:var(--reader-line);border-left:4px solid var(--reader-accent)}
+html[data-reader=course] .block{margin-top:18px}
+html[data-reader=course] .block>h4{font-size:.78rem;color:var(--reader-accent);font-weight:750;letter-spacing:.03em;margin-bottom:6px}
+html[data-reader=course] .block-analogy{padding:14px 16px;background:var(--reader-active);border:0;border-left:3px solid var(--reader-accent)}
+html[data-reader=course] .block-rig{padding:6px 0 6px 15px;border-left:3px solid var(--reader-line)}
+html[data-reader=course] .block-nc{background:var(--reader-warm);color:var(--reader-warm-ink);border:1px solid color-mix(in srgb,var(--reader-warm-ink) 20%,transparent)}
+html[data-reader=course] .block-nc>h4{color:var(--reader-warm-ink)}
+html[data-reader=course] .formula-item{padding:16px;background:var(--reader-soft)}
+html[data-reader=course] .inline-math-prose{font-family:inherit}
+html[data-reader=course] .fig figcaption{line-height:1.8;padding:10px 12px}
+html[data-reader=course] .intro{padding:24px}
+html[data-reader=course] .course-synopsis{color:var(--reader-muted);font-size:.95rem;margin:12px 0 0}
+html[data-reader=paper] .study-shell{max-width:1440px;gap:24px;padding-top:24px;grid-template-columns:290px minmax(0,1fr)}
+html[data-reader=paper] .study-nav{top:var(--reader-offset);max-height:calc(100dvh - var(--reader-offset) - 18px);padding:16px 12px}
+html[data-reader=paper] .block-nav a{font-size:.85rem;line-height:1.65;padding:9px 8px;border-left:3px solid transparent}
+html[data-reader=paper] .block-nav .nav-num{font-size:.72rem}
+html[data-reader=paper] .reading-block{scroll-margin-top:var(--reader-offset);margin-bottom:22px;border-radius:10px}
+html[data-reader=paper] .block-head{padding:20px 22px;background:var(--reader-soft)}
+html[data-reader=paper] .block-head h2{font-size:1.12rem;line-height:1.65}
+html[data-reader=paper] .block-kicker{color:var(--reader-accent);font-size:.68rem}
+html[data-reader=paper] .sentence-pair>div{padding:20px 22px}
+html[data-reader=paper] .sentence-pair>div+div{background:var(--reader-paper)}
+html[data-reader=paper] .sentence-pair .lang-en{font-size:1rem;line-height:1.9}
+html[data-reader=paper] .sentence-pair .lang-zh{font-size:1rem;line-height:1.95}
+html[data-reader=paper] .pair-label{font-size:.65rem;color:var(--reader-muted);margin-bottom:9px}
+html[data-reader=paper] .study-header{border-radius:10px;padding:28px}
+html[data-reader=paper] .module-goal{background:var(--reader-active);border-color:var(--reader-accent)}
+html[data-reader=project] .shell{grid-template-columns:285px minmax(0,930px);max-width:1320px;gap:28px}
+html[data-reader=project] #nav{top:var(--reader-offset);max-height:calc(100dvh - var(--reader-offset) - 110px);padding:0 12px 18px 0}
+.reader-unit-list{display:grid;gap:3px;margin:4px 0 12px 8px;padding-left:8px;border-left:1px solid var(--reader-line)}
+.reader-unit-list a{display:block;padding:7px 9px;border-left:3px solid transparent;border-radius:5px;font-size:.86rem;color:var(--reader-muted);text-decoration:none;line-height:1.65}
+html[data-reader=project] .unit{scroll-margin-top:var(--reader-offset);box-shadow:0 3px 12px #102b3f04;border-radius:10px;padding:28px}
+html[data-reader=project] .unit h3{font-size:1.25rem;color:var(--reader-ink);margin-bottom:12px}
+html[data-reader=project] .plain{border-left:3px solid var(--reader-accent);border-radius:5px}
+html[data-reader=project] .label{color:var(--reader-accent);font-weight:750}
+@media(min-width:900px){html[data-reader=course] .layout{grid-template-columns:290px minmax(0,1fr)}}
+@media(max-width:1000px){html[data-reader=paper] .study-shell{grid-template-columns:240px minmax(0,1fr)}html[data-reader=paper] .sentence-pair{grid-template-columns:1fr}html[data-reader=paper] .sentence-pair>div+div{border-left:0;border-top:1px dashed var(--reader-line)}}
+@media(max-width:899px){html[data-reader=course] .toc{top:var(--reader-offset);max-height:calc(100dvh - var(--reader-offset));bottom:0}html[data-reader=course] .layout{padding:14px}html[data-reader=course] .topbar{padding:9px 12px}html[data-reader=course] .chapter{padding:16px}html[data-reader=course] .unit{padding:16px}}
+@media(max-width:760px){html[data-reader=paper] .study-shell{display:block;padding:12px}html[data-reader=paper] .study-nav{position:relative;top:0;max-height:280px;margin-bottom:16px}html[data-reader=paper] .block-head{padding:16px}html[data-reader=paper] .sentence-pair>div{padding:16px}html[data-reader=project] .shell{display:block}html[data-reader=project] #nav{max-height:65dvh}html[data-reader=project] .unit{padding:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.reader-nav *{transition:none!important}}
+@media print{.reader-nav{display:none!important}html[data-reader] body{background:white;color:black}.reader-math{color:black}}

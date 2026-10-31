@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build a new isolated bilingual site and validated, unspoken-source glossary plans."""
 from __future__ import annotations
-import argparse, json, shutil
+import argparse, hashlib, json, shutil
 from pathlib import Path
 from common import *
 
@@ -37,8 +37,13 @@ def build(project_path, stage, sources_root):
         dest = under(stage, "sources/" + rel); dest.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(src, dest)
     atomic_write(stage / "project.js", ("window.LEARNING_PROJECT=" + json.dumps(p, ensure_ascii=False) + ";\n").encode())
     write_json(stage / "project.json", p)
+    # Renderer changes invalidate the shell without resetting audiobook speed/position.
     version = fingerprint(p)[:16]
-    sw = (stage / "sw.js").read_text(encoding="utf-8").replace("__BUILD_VERSION__", version).replace("__PROJECT_ID__", p["project_id"])
+    renderer = hashlib.sha256()
+    for src in sorted(x for x in ASSETS.rglob("*") if x.is_file()):
+        renderer.update(src.relative_to(ASSETS).as_posix().encode()); renderer.update(src.read_bytes())
+    shell_version = version + "-" + renderer.hexdigest()[:12]
+    sw = (stage / "sw.js").read_text(encoding="utf-8").replace("__BUILD_VERSION__", shell_version).replace("__PROJECT_ID__", p["project_id"])
     atomic_write(stage / "sw.js", sw.encode())
     webmanifest = {"name": p["title_zh"], "short_name": p["title_zh"][:12], "start_url": "./index.html",
                    "scope": "./", "lang": "zh-CN", "display": "standalone", "theme_color": "#183e45", "background_color": "#f5f3eb"}

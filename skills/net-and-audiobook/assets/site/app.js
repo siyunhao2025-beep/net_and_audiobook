@@ -13,7 +13,7 @@
   p.chapters.forEach(c => { chapterMap.set(c.id, c); c.units.forEach(u => unitMap.set(u.id, { unit: u, chapter: c })); });
   state.done = [...new Set(state.done)].filter(id => unitMap.has(id));
   const initialPosition = state.position; // Capture before observers can update the stored position.
-  let active = "overview", restoring = true, observer;
+  let active = "overview", restoring = true;
   document.title = p.title_zh; $("site-title").textContent = p.title_zh;
   const preferences = () => {
     document.documentElement.dataset.theme = ["light", "dark"].includes(state.theme) ? state.theme : "light";
@@ -40,7 +40,7 @@
     document.body.classList.remove("menu-open"); $("menu").setAttribute("aria-expanded", "false");
     state.chapter = id; if (!restoring) { state.position = target || id; save(); }
     history[replace ? "replaceState" : "pushState"]({}, "", "#" + (target || id));
-    requestAnimationFrame(() => { if (target) $(target)?.scrollIntoView(); else window.scrollTo(0, 0); });
+    requestAnimationFrame(() => { window.NBAReader?.refresh(); if (target) { if (!window.NBAReader?.navigate(target)) $(target)?.scrollIntoView(); } else window.scrollTo({top:0,behavior:"instant"}); });
   }
   function paint() {
     state.done = state.done.filter(id => unitMap.has(id));
@@ -113,10 +113,8 @@
   paint();
   const hash = decodeURIComponent(location.hash.slice(1)), target = hash || initialPosition || state.chapter;
   const chapter = unitMap.get(target)?.chapter.id || (chapterMap.has(target) ? target : "overview"); show(locked(chapterMap.get(chapter) || p.chapters[0]) && chapter !== "overview" ? "overview" : chapter, unitMap.has(target) ? target : null, true);
-  requestAnimationFrame(() => requestAnimationFrame(() => { restoring = false;
-    observer = new IntersectionObserver(entries => { if (restoring || active === "overview") return; const hit = entries.filter(x => x.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]; if (hit) { state.position = hit.target.id; save(); } }, { rootMargin: "-90px 0px -50% 0px" });
-    document.querySelectorAll(".unit").forEach(n => observer.observe(n));
-  }));
+  document.addEventListener("reader:unit", event => { const id=event.detail.id; if (!restoring && active!=="overview" && unitMap.get(id)?.chapter.id===active) { state.position=id;save(); } });
+  requestAnimationFrame(() => requestAnimationFrame(() => { restoring = false;window.NBAReader?.refresh(); }));
   window.onpopstate = () => { const id = decodeURIComponent(location.hash.slice(1)); show(unitMap.get(id)?.chapter.id || (chapterMap.has(id) ? id : "overview"), unitMap.has(id) ? id : null, true); };
   if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register("sw.js").catch(() => {});
 })();

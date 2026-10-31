@@ -35,7 +35,7 @@ python "$SKILL_DIR/scripts/audit_sources.py" \
 
 空间天气内容先读 [references/space-weather.md](references/space-weather.md)；公式读 [references/formulas.md](references/formulas.md)。歧义先查原文定义、表注及官方数据产品文档；证据不足就保留未定义，不凭字母猜物理量。
 
-按 [references/project-schema.md](references/project-schema.md) 编写 `project.json`。网页默认先通俗解释、后标准解释；音频使用下一节的独立顺序。
+按 [references/project-schema.md](references/project-schema.md) 编写 `project.json`。网页默认先通俗解释、后标准解释；音频使用下一节的独立顺序。目录必须跟随到具体知识点，正文、图注和目录中的行内公式也要规范排版；不能只修独立公式卡。长目录、明暗层级、恢复位置和减少动画偏好按 [references/website.md](references/website.md) 检查。
 
 ## 3. 沿用认可的有声书格式
 
@@ -88,6 +88,7 @@ python "$SKILL_DIR/scripts/synthesize.py" resume --stage "$STAGE"
 ```bash
 python "$SKILL_DIR/scripts/verify.py" --stage "$STAGE" --audio --package
 python "$SKILL_DIR/scripts/browser_check.py" --stage "$STAGE" --audio
+python "$SKILL_DIR/scripts/reader_check.py" --out "$WORK/reader-qa"
 ```
 
 解决所有错误并逐条判断语速警告。比对来源、单位与原式，抽听片头片尾、长词、拼写及中英衔接。实际测试HTTP/file、1280/390宽度、主题、搜索、打卡、进度导入导出、恢复位置和计时。播放器同时核对 `defaultPlaybackRate` 与 `playbackRate`。变更后重复受影响及依赖检查；发布证据绑定当前文件哈希。
