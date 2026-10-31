@@ -10,7 +10,7 @@ from make_demo import make
 from build_site import build
 
 SKILL=Path(__file__).resolve().parents[1]
-CASES=['L >> λ_D','N_D >> 1','ω_pe τ > 1','v_th = (k_B T_e / m_e)^{1/2}','T_e/T_i','R^2','B_z','\\omega_{pe} > 1']
+CASES=['L >> λ_D','N_D >> 1','ω_pe τ > 1','v_th = (k_B T_e / m_e)^{1/2}','T_e/T_i','R^2','B_z','\\omega_{pe} > 1','cm^-3']
 
 def legacy_fixture(path,kind):
     path.mkdir(parents=True,exist_ok=True)
@@ -30,7 +30,7 @@ def run(out,executable=None):
     out=Path(out).resolve();out.mkdir(parents=True,exist_ok=True)
     errors=[];checks=[]
     with tempfile.TemporaryDirectory(prefix='reader-fixture-') as tmp:
-        root=Path(tmp);make(root/'input');p=read_json(root/'input/project.json');p['ui']['sequential']=False
+        root=Path(tmp);make(root/'input');build(root/'input/project.json',root/'demo',root/'input');p=read_json(root/'input/project.json');p['ui']['sequential']=False
         first=copy.deepcopy(p['chapters'][0]['units'][0]);p['chapters'][0]['units']=[]
         for i in range(1,37):
             u=copy.deepcopy(first);u['id']=f'u-{i:02}';u['title_zh']=f'知识点 {i} · λ_D';u['plain_zh']='，'.join(CASES)+'。'+('这是一段原创界面测试内容，用来检查阅读定位、目录跟随与行内公式。'*18);p['chapters'][0]['units'].append(u)
@@ -44,6 +44,9 @@ def run(out,executable=None):
                 options={'headless':True}
                 if executable:options['executable_path']=executable
                 browser=pw.chromium.launch(**options)
+                preview=browser.new_context(viewport={'width':1280,'height':900},reduced_motion='reduce');tab=preview.new_page()
+                tab.goto(f'http://127.0.0.1:{server.server_port}/demo/index.html');tab.locator('[data-chapter]').first.click();tab.wait_for_selector('.reader-current')
+                tab.screenshot(path=str(out/'learning-preview.png'));tab.locator('#theme').click();tab.screenshot(path=str(out/'learning-dark-preview.png'));preview.close()
                 for kind in ['project','course','paper']:
                     for protocol in ['file','http']:
                         for width in [1280,390]:
@@ -76,6 +79,7 @@ def run(out,executable=None):
                                 assert first_unit.locator('math.reader-math msub').count()>=5,'Subscripts missing'
                                 assert first_unit.locator('math.reader-math msup').count()>=2,'Powers missing'
                                 assert first_unit.locator('math.reader-math mfrac').count()>=1,'Fractions missing'
+                                assert first_unit.locator('math[data-math-source="cm^-3"] msup').count()==1 and first_unit.locator('math[data-math-source="cm^-3"] msup').inner_text().replace('\n','').replace(' ','').endswith('−3'),'Negative exponent changed meaning'
                                 if kind!='project':
                                     assert first_unit.locator('code').inner_text()=='n_e report_data.json','Code was typeset'
                                     assert first_unit.locator('a').inner_text()=='source_file.json','Filename was changed'

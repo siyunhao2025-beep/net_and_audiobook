@@ -17,11 +17,12 @@
       if ('({['.includes(c)) {
         i++; const end = {'(':')','{':'}','[':']'}[c], inner = row(end); if (s[i] !== end) { valid=false; return null; } i++;
         n = c === '{' ? inner : node('mrow',null,[node('mo',c),inner,node('mo',end)]);
-      } else if (/\d/.test(c)) { const m = s.slice(i).match(/^\d+(?:\.\d+)?/)[0]; i += m.length; n=node('mn',m); }
+      } else if (script && /^[+−-]\d/.test(s.slice(i))) { const m=s.slice(i).match(/^[+−-]\d+(?:\.\d+)?/)[0];i+=m.length;n=node('mn',m.replace('-','−')); }
+      else if (/\d/.test(c)) { const m = s.slice(i).match(/^\d+(?:\.\d+)?/)[0]; i += m.length; n=node('mn',m); }
       else if (/[A-Za-zΑ-ωϵϑϕℓ]/.test(c)) {
         let m;
         if (script) m = s.slice(i).match(/^[A-Za-zΑ-ωϵϑϕℓ]+/)[0];
-        else m = s.slice(i).match(/^(?:sin|cos|tan|exp|log|ln|max|min)(?![A-Za-z])/)?.[0] || c;
+        else m = s.slice(i).match(/^(?:sin|cos|tan|exp|log|ln|max|min|cm|km|keV|MeV|eV|nT|nPa|Pa|mHz|Hz|kg)(?![A-Za-z])/)?.[0] || c;
         i += m.length; n=node('mi',m); if (m.length > 1) n.setAttribute('mathvariant','normal');
       } else if (operators.has(c)) { i++; n=node('mo',c === '-' ? '−' : c); }
       else { valid=false; return null; }
@@ -45,7 +46,7 @@
     const result=row(); return valid && i===s.length && result.childNodes.length ? result : null;
   }
   // A math island must contain explicit notation. Ordinary words, filenames and code stay text.
-  const base = String.raw`(?:\\[A-Za-z]+|[A-Za-zΑ-ωϵϑϕℓ]|\d+(?:\.\d+)?)`;
+  const base = String.raw`(?:\\[A-Za-z]+|cm|km|keV|MeV|eV|nT|nPa|Pa|mHz|Hz|kg|[A-Za-zΑ-ωϵϑϕℓ]|\d+(?:\.\d+)?)`;
   const script = String.raw`(?:[_^](?:\{[^{}\n]+\}|[A-Za-zΑ-ωϵϑϕℓ]+|[+−-]?\d+)|[²³¹⁰⁻⁺₀₁₂₃₄₅₆₇₈₉ₑᵢₚ]+)`;
   const atomPattern = String.raw`(?<![A-Za-z0-9_.\\])${base}(?:${script})*(?![A-Za-z0-9_.])`;
   const tokenPattern = new RegExp(`${atomPattern}|${script}|[+−×·⋅÷=<>≥≤≠≈∼≫≪±∓∝⊥∥→/(){}\\[\\]|,:;%!-]`, 'gu');
