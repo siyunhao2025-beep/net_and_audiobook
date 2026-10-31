@@ -1,0 +1,58 @@
+{
+  "schema": "source-audit-v1",
+  "root_counts": {
+    "paper_projects": {
+      "files": 189,
+      "directories": 11
+    },
+    "course_materials": {
+      "files": 399,
+      "directories": 58
+    }
+  },
+  "files": 588,
+  "directories": 69,
+  "bytes": 1649581945,
+  "unique_sha256": 555,
+  "unique_texts": 254,
+  "inspection_modes": {
+    "full_text": 260,
+    "pdf_all_pages_text_and_image_inventory": 15,
+    "image_decode_and_metadata": 220,
+    "audio_full_decode_and_metadata": 77,
+    "full_text_detected": 3,
+    "archive_directory_and_all_member_crc": 3,
+    "binary_checksum_only": 5,
+    "model_or_serialized_data_checksum_only": 5
+  },
+  "extension_counts": {
+    ".md": 11,
+    ".js": 15,
+    ".webmanifest": 2,
+    ".json": 92,
+    ".html": 19,
+    ".css": 4,
+    ".pdf": 15,
+    ".png": 63,
+    ".svg": 28,
+    ".py": 41,
+    ".mp3": 41,
+    ".txt": 46,
+    ".m3u8": 3,
+    ".zip": 3,
+    ".pyc": 5,
+    ".jpg": 157,
+    ".wav": 36,
+    ".ps1": 1,
+    "": 1,
+    ".pt": 2,
+    ".onnx": 1,
+    ".pth": 1,
+    ".npz": 1
+  },
+  "errors": [],
+  "all_entries_accounted_for": true,
+  "limits": "PDF images and model tensors are inventoried, not semantically reviewed. Text is redacted heuristically; never publish this private corpus automatically.",
+  "date": "2026-10-31",
+  "private_roots_and_corpus_excluded": true
+}

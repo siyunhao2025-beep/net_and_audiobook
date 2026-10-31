@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "project_id": "space-weather-demo",
+  "title_zh": "空间天气学习示例",
+  "title_en": "Space Weather Learning Demo",
+  "summary_zh": "这是原创的最小流程示例，用来验证网页与名词有声书，不代替正式教材。",
+  "notes": [
+    "示例来源由 make_demo.py 生成；公式仅用于演示核对流程。"
+  ],
+  "sources": [
+    {
+      "id": "demo-source",
+      "title": "原创教学示例",
+      "path": "demo.pdf",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "pages": 2
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch-solar-wind",
+      "title_zh": "太阳风",
+      "title_en": "Solar Wind",
+      "goal_zh": "区分持续流动的太阳风和瞬态喷发。",
+      "units": [
+        {
+          "id": "unit-solar-wind",
+          "title_zh": "太阳风是什么",
+          "title_en": "What is solar wind?",
+          "plain_zh": "太阳也会不断向外吹出带电粒子，形成流向行星际空间的粒子流。",
+          "standard_zh": "太阳风是由太阳日冕向行星际空间扩展的等离子体流。",
+          "english": "Solar wind is a plasma flow expanding from the solar corona into interplanetary space.",
+          "english_role": "source",
+          "formula_ids": [
+            "eq-speed"
+          ],
+          "visual_ids": [],
+          "source_refs": [
+            {
+              "source_id": "demo-source",
+              "page": 1
+            }
+          ],
+          "plain_en": "Think of a stream of charged particles flowing outward from the Sun.",
+          "standard_en": "Solar wind is a plasma flow expanding from the solar corona into interplanetary space."
+        }
+      ],
+      "questions": [
+        {
+          "zh": "太阳风主要由什么构成？",
+          "en": "What is solar wind made of?",
+          "answer_zh": "它是等离子体流，包含带电粒子。",
+          "source_refs": [
+            {
+              "source_id": "demo-source",
+              "page": 1
+            }
+          ],
+          "answer_en": "It is a plasma flow containing charged particles."
+        },
+        {
+          "zh": "太阳风从哪里流向哪里？",
+          "en": "Where does solar wind flow from and to?",
+          "answer_zh": "从太阳日冕流向行星际空间。",
+          "source_refs": [
+            {
+              "source_id": "demo-source",
+              "page": 1
+            }
+          ],
+          "answer_en": "It flows from the solar corona into interplanetary space."
+        }
+      ],
+      "extensions": [
+        {
+          "zh": "延伸方向：结合有单位的流速、密度和磁场观测，研究太阳风条件。",
+          "en": "Extension: study solar wind using speed, density and magnetic field observations with units."
+        }
+      ]
+    },
+    {
+      "id": "ch-magnetopause",
+      "title_zh": "磁层顶",
+      "title_en": "Magnetopause",
+      "units": [
+        {
+          "id": "unit-magnetopause",
+          "title_zh": "磁层顶是什么",
+          "title_en": "What is the magnetopause?",
+          "plain_zh": "可以把它想成地球磁层外围的一道会随外界挤压而移动的边界。",
+          "standard_zh": "磁层顶是磁层与外部磁鞘等离子体之间的边界。",
+          "english": "The magnetopause is the boundary between the magnetosphere and the surrounding magnetosheath plasma.",
+          "english_role": "source",
+          "source_refs": [
+            {
+              "source_id": "demo-source",
+              "page": 2
+            }
+          ],
+          "plain_en": "Think of a movable boundary around the magnetosphere, responding to pressure from its surroundings.",
+          "standard_en": "The magnetopause is the boundary between the magnetosphere and the surrounding magnetosheath plasma."
+        }
+      ],
+      "questions": [
+        {
+          "zh": "磁层顶是一堵固体墙吗？",
+          "en": "Is the magnetopause a solid wall?",
+          "answer_zh": "不是，它是空间等离子体环境中的边界。",
+          "source_refs": [
+            {
+              "source_id": "demo-source",
+              "page": 2
+            }
+          ],
+          "answer_en": "No. It is a boundary in a plasma environment."
+        },
+        {
+          "zh": "这个边界分隔哪两种区域？",
+          "en": "Which regions does this boundary separate?",
+          "answer_zh": "磁层与外部磁鞘等离子体。",
+          "source_refs": [
+            {
+              "source_id": "demo-source",
+              "page": 2
+            }
+          ],
+          "answer_en": "It separates the magnetosphere from the surrounding magnetosheath plasma."
+        }
+      ],
+      "extensions": [
+        {
+          "zh": "延伸方向：查阅磁层顶位置与太阳风压力变化的关系。",
+          "en": "Extension: examine how solar wind pressure affects the magnetopause location."
+        }
+      ]
+    }
+  ],
+  "formulas": [
+    {
+      "id": "eq-speed",
+      "latex": "v=d/t",
+      "mathml": "<math display=\"block\"><mi>v</mi><mo>=</mo><mfrac><mi>d</mi><mi>t</mi></mfrac></math>",
+      "source_image": "speed-source.png",
+      "verified": true,
+      "note_zh": "仅演示平均速率的定义。距离与时间必须使用相容单位；这不是太阳风动力学模型。",
+      "source_refs": [
+        {
+          "source_id": "demo-source",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "visuals": [],
+  "terms": [
+    {
+      "id": "term-solar-wind",
+      "zh": "太阳风",
+      "en": "Solar wind",
+      "standard_zh": "太阳风是由太阳日冕向行星际空间扩展的等离子体流。",
+      "plain_zh": "太阳不断向外吹出带电粒子，就像一阵流向行星际空间的粒子风。",
+      "source_refs": [
+        {
+          "source_id": "demo-source",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "term-magnetopause",
+      "zh": "磁层顶",
+      "en": "Magnetopause",
+      "standard_zh": "磁层顶是磁层与外部磁鞘等离子体之间的边界。",
+      "plain_zh": "它像地球磁层外围的一道活动边界，会随着外界的挤压而移动。",
+      "source_refs": [
+        {
+          "source_id": "demo-source",
+          "page": 2
+        }
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "id": "ep-solar-wind",
+      "title_zh": "太阳风",
+      "title_en": "Solar Wind",
+      "chapter_ids": [
+        "ch-solar-wind"
+      ],
+      "term_ids": [
+        "term-solar-wind"
+      ]
+    },
+    {
+      "id": "ep-magnetopause",
+      "title_zh": "磁层顶",
+      "title_en": "Magnetopause",
+      "chapter_ids": [
+        "ch-magnetopause"
+      ],
+      "term_ids": [
+        "term-magnetopause"
+      ]
+    }
+  ],
+  "ui": {
+    "sequential": true,
+    "timer": {
+      "focus_minutes": 40,
+      "break_minutes": 10
+    }
+  }
+}

@@ -1,0 +1,23 @@
+name: Validate skill
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-contracts:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install 'PyMuPDF>=1.24,<2' 'Pillow>=10,<13'
+      - run: python skills/net-and-audiobook/scripts/self_test.py
+      - run: node --check skills/net-and-audiobook/assets/site/app.js
+      - run: node --check skills/net-and-audiobook/assets/site/audiobook/app.js
+      - run: node --check skills/net-and-audiobook/assets/site/sw.js
+      - run: python skills/net-and-audiobook/scripts/release_check.py --root .

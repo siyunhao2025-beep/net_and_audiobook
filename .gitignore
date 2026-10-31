@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+.env*
+_work/
+corpus/
+*.mp3
+*.wav
+*.pdf
+*.zip
+*.pt
+*.pth
+*.onnx
+*.npz

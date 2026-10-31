@@ -1,0 +1,7 @@
+# Python 3.10+; ffmpeg and ffprobe must also be available on PATH.
+PyMuPDF>=1.24,<2
+Pillow>=10,<13
+numpy>=1.26,<3
+soundfile>=0.12,<1
+edge-tts==7.3.1
+# Browser QA additionally needs: pip install playwright; playwright install chromium

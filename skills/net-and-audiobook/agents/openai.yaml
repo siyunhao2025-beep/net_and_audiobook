@@ -1,0 +1,4 @@
+interface:
+  display_name: "空间天气网页与有声书"
+  short_description: "将论文和课程材料转为可离线学习的双语网页与自然朗读有声书"
+  default_prompt: "使用 $net-and-audiobook，把我提供的空间天气论文或PPT制作成分章节双语学习网页和名词有声书，沿用自然普通话及美式英语慢速拼读，并完成校验。"
